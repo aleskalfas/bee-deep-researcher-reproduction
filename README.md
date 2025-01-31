@@ -2,6 +2,33 @@
 
 This is a reproduction of the original [Ollama Deep Researcher](https://github.com/langchain-ai/ollama-deep-researcher/blob/main/README.md) from Langchain, built using the [BeeAI Framework](https://i-am-bee.github.io/bee-agent-framework#/). All credits go to the Langchain team for the original work 🙏👏.
 
+### Workflow
+
+```mermaid
+flowchart TB
+    Start --> GenerateQuery[Generate Query]
+    GenerateQuery --> WebResearch[Web Research]
+    WebResearch --> WebCrawl[Web Crawl]
+    WebCrawl --> WebPageSummary[Page Data Extraction]
+    WebPageSummary --> SummarizeSources[Summarize Sources]
+    
+    SummarizeSources -->|Pages Left| WebCrawl
+    SummarizeSources -->|No Pages Left| ReflectOnSummary[Reflect on Summary]
+    
+    ReflectOnSummary -->|Loop Count <= Max| WebResearch
+    ReflectOnSummary -->|Loop Count > Max| FinalizeSummary[Finalize Summary]
+    
+    FinalizeSummary --> End
+    
+    subgraph Search Loop
+        WebResearch
+        WebCrawl
+        WebPageSummary
+        SummarizeSources
+        ReflectOnSummary
+    end
+```
+
 ## Run
 
 `npm start <<< "How does the PPO RL algorithm work?"`
