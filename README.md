@@ -8,11 +8,8 @@ This is a reproduction of the original [Ollama Deep Researcher](https://github.c
 flowchart TB
     Start --> GenerateQuery[Generate Query]
     GenerateQuery --> WebResearch[Web Research]
-    WebResearch --> WebCrawl[Web Crawl]
-    WebCrawl --> WebPageSummary[Page Data Extraction]
-    WebPageSummary --> SummarizeSources[Summarize Sources]
+    WebResearch --> SummarizeSources[Summarize Sources]
     
-    SummarizeSources -->|Pages Left| WebCrawl
     SummarizeSources -->|No Pages Left| ReflectOnSummary[Reflect on Summary]
     
     ReflectOnSummary -->|Loop Count <= Max| WebResearch
@@ -22,8 +19,6 @@ flowchart TB
     
     subgraph Search Loop
         WebResearch
-        WebCrawl
-        WebPageSummary
         SummarizeSources
         ReflectOnSummary
     end
